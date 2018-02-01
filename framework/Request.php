@@ -5,15 +5,23 @@ class Request
 {
     private $_parameters;
 
-    public function __construct(array $parameters) {
-        $this->_parameters = $parameters;
+    public function __construct(array $parameters) 
+    {
+        $this->setParameter($parameters);
     }
 
-    public function isParameter($name) {
+    public function isParameter($name) 
+    {
         return (isset($this->_parameters[$name]) && $this->_parameters[$name] != "");
     }
 
-    public function getParameter($name) {
+    public function setParameter(array $parameters) 
+    {
+        $this->_parameters = $parameters;
+    }
+
+    public function getParameter($name) 
+    {
         if ($this->isParameter($name)) {
             return $this->_parameters[$name];
         }

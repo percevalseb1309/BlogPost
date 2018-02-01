@@ -7,7 +7,8 @@ abstract class Manager
 {
 	private static $_db;
 
-	protected function executeRequest($sql, $params = null) {
+	protected function executeRequest($sql, $params = null) 
+	{
 		if ($params == null) {
 			$req = SELF::dbConnect()->query($sql);    
 		}
