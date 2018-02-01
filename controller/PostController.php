@@ -2,6 +2,7 @@
 namespace OC\BlogPost\Controller;
 
 use \OC\BlogPost\Framework\Controller;
+use OC\BlogPost\Framework\View;
 use \OC\BlogPost\Model\PostManager;
 use \OC\BlogPost\Model\CommentManager;
 
@@ -10,11 +11,11 @@ class PostController extends Controller
     private $_postManager;
     private $_commentManager;
 
-    public function __construct(\Twig_Environment $twig) 
+    public function __construct(\Twig_Environment $twig, View $view, PostManager $postManager, CommentManager $commentManager)
     {
-        parent::__construct($twig);
-        $this->_postManager    = new PostManager();
-        $this->_commentManager = new CommentManager();
+        parent::__construct($twig, $view);
+        $this->_postManager    = $postManager;
+        $this->_commentManager = $commentManager;
     }
 
     public function index()
@@ -46,7 +47,7 @@ class PostController extends Controller
         $affectedLines = $this->_postManager->addPost($author, $title, $lead_paragraph, $content);
 
         if ($affectedLines === false) {
-        	throw new \Exception("Impossible d'ajouter un post !");
+            throw new \Exception("Impossible d'ajouter un post !");
         }
         else {
             header('Location: ' .BASE_URL. 'index.php/post');
@@ -85,7 +86,7 @@ class PostController extends Controller
         $affectedLines = $this->_postManager->deletePost($postId);
 
         if ($affectedLines === false) {
-        	throw new \Exception('Impossible de supprimer le post !');
+            throw new \Exception('Impossible de supprimer le post !');
         }
         else {
             header('Location: ' .BASE_URL. 'index.php/post');

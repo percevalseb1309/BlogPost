@@ -1,22 +1,24 @@
 <?php
 namespace OC\BlogPost\Framework;
 
-/*use \OC\BlogPost\Framework\Request;
-use \OC\BlogPost\Framework\View;*/
-
 class Router 
 {
-	private $_twig;
+	private $_request;
+	private $_view;
 
-	public function __construct(\Twig_Environment $twig) 
+	public function __construct(Request $request, View $view)
 	{
-		$this->_twig = $twig;
+		$this->_request = $request;
+		$this->_view    = $view;
 	}
 
 	public function routeRequest()
 	{
 		try {
-			preg_match('#^/BlogPost/index.php?/(\w+)/?(\w+)?/?(\d+)?#i', $_SERVER['REQUEST_URI'], $matches);
+            preg_match('#^/BlogPost/index.php?/(\w+)/?(\w+)?/?(\d+)?#i', $_SERVER['REQUEST_URI'], $matches);
+            echo '<pre>';
+            var_dump($matches);
+            echo '</pre>';
 		    if ( ! empty($matches) && isset($matches[1])) { 
 		    	$_GET['controller'] = $matches[1];
 		    	if (isset($matches[2])) {
@@ -27,50 +29,16 @@ class Router
 		    	}
 		    }
 
-		    $request = new Request(array_merge($_GET, $_POST));
 
-		    $controller = $this->createController($request);
-		    $action = $this->createAction($request);
-
-		    $controller->executeAction($action);
+		    $this->_request->setParameter(array_merge($_GET, $_POST));
 		}
 		catch(\Exception $e) {
 			$this->error($e->getMessage());
 		}
 	}
 
-	private function createController(Request $request) {
-	    $controller = "Home";  
-	    if ($request->isParameter('controller')) {
-	        $controller = $request->getParameter('controller');
-	        $controller = ucfirst(strtolower($controller));
-	    }
-
-	    $controllerClass = $controller. "Controller";
-	    $controllerFile = "controller/" . $controllerClass . ".php";
-	    $controllerClassWithNamespace = "\OC\BlogPost\Controller\\" .$controllerClass;
-	    if (file_exists($controllerFile)) {
-	    	require_once($controllerFile);
-	        $controller = new $controllerClassWithNamespace($this->_twig);
-	        $controller->setRequest($request);
-	        return $controller;
-	    }
-	    else {
-	        throw new \Exception("Fichier '". $controllerFile. "' introuvable");
-	    }
-	}
-
-	private function createAction(Request $request) {
-	    $action = 'index'; 
-	    if ($request->isParameter('action')) {
-	        $action = $request->getParameter('action');
-	    }
-	    return $action;
-	}
-
-	private function error($errorMessage) 
+	public function error($errorMessage)
 	{
-		$view = new View($this->_twig, 'error');
-		$view->generate(['errorMessage' => $errorMessage]);
+		$this->_view->generate(['errorMessage' => $errorMessage]);
 	}
 }
