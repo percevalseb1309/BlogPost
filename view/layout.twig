@@ -1,41 +1,73 @@
 <!DOCTYPE html>
 <html lang="fr">
-	<head>
-		<meta charset="utf-8">
-		<title>{% block title %}{% endblock %}</title>
-		<meta http-equiv="X-UA-Compatible" content="IE=edge">
-		<meta name="viewport" content="width=device-width, initial-scale=1">
-		{# <meta name="description" content="à remplir"> #}
-		<base href="{{ base_url }}">  
-		{# <link rel="icon" type="image/png" href="public/img/favicon.png"> #}
-		<link rel="stylesheet" href="public/css/bootstrap.min.css">
-		<link rel="stylesheet" href="public/css/style.css">
-	</head>
 
-	<body>
-		<div class="container-fluid">
-			<header class="row">
-				<nav class="navbar navbar-default">
-				  	<div class="container-fluid">
-					    <div class="navbar-header">
-					    	<a class="navbar-brand" href="{{ base_url }}">Mon blog !</a>
-					    </div>
-					    <ul class="nav navbar-nav">
-					    	<li class="active"><a href="index.php/home">Accueil</a></li>
-					        <li><a href="index.php/post">Liste des posts</a></li>
-					        <li><a href="index.php/post/newPostForm">Ajouter un post</a></li>
-					    </ul>
-				  	</div>
-				</nav>
-			</header>
+  <head>
 
-			<div class="container">
-				{% block content %}{% endblock %}
-			</div>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
 
-		    <footer></footer>
-		</div>
-		<script type="text/javascript" src="public/js/jquery.min.js"></script>
-		<script type="text/javascript" src="public/js/bootstrap.min.js"></script>
-	</body>
+    <title>{% block title %}Blog professionnel{% endblock %}</title>
+
+    <base href="{{ base_url }}">
+
+    <!-- Bootstrap core CSS -->
+    <link href="public/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Custom styles for this template -->
+    <link href="public/css/modern-business.css" rel="stylesheet">
+
+    <!-- Font Awesome CSS -->
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+
+  </head>
+
+  <body>
+
+    <!-- Navigation -->
+    <nav class="navbar fixed-top navbar-expand-lg navbar-dark bg-dark fixed-top">
+      <div class="container">
+        <a class="navbar-brand" href="{{ base_url }}">Mon blog !</a>
+        <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarResponsive">
+          <ul class="navbar-nav ml-auto">
+            <li class="nav-item">
+              <a class="nav-link" href="index.php/post">Liste des posts</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="index.php/post/newPostForm">Ajouter un post</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+
+    <!-- Page Content -->
+    <div class="container">
+      {% block content %}{% endblock %}
+    </div>
+    <!-- /.container -->
+
+    <!-- Footer -->
+    <footer class="py-5 bg-dark">
+      <div class="container">
+        <p class="m-0 text-center text-white">Copyright &copy; Blog Post 2018</p>
+      </div>
+      <!-- /.container -->
+    </footer>
+
+    <!-- Bootstrap core JavaScript -->
+    <script src="public/js/jquery.min.js"></script>
+    <script src="public/js/bootstrap.bundle.min.js"></script>
+
+    <!-- Contact form JavaScript -->
+    <!-- Do not edit these files! In order to set the email address and subject line for the contact form go to the bin/contact_me.php file. -->
+    <script src="public/js/jqBootstrapValidation.js"></script>
+    <script src="public/js/contact_me.js"></script>
+
+  </body>
+
 </html>

@@ -1,35 +1,54 @@
 {% extends 'layout.twig' %}
 
 {% block title %}
-    {{ post.title }}
+    Ajouter un Post - {{ parent() }}
 {% endblock %}
 
 {% block content %}
-    <h1>Mon blog !</h1>
-    <p>
-    	<a href="index.php/post">Retour à la liste des posts</a><br>
-    </p>
+    <!-- Page Heading/Breadcrumbs -->
+    <h1 class="mt-4 mb-3">Ajouter un Post</h1>
 
-    <form action="index.php/post/newPost" method="post">
-        <h2>Ajouter un post</h2>
-        <div>
-            <label for="author">Auteur</label><br />
-            <input type="text" id="author" name="author" />
-        </div>      
-        <div>
-            <label for="title">Titre</label><br />
-            <input type="text" id="title" name="title" />
-        </div>
-        <div>
-            <label for="lead_paragraph">Chapô</label><br />
-            <textarea id="lead_paragraph" name="lead_paragraph"></textarea>
-        </div>      
-        <div>
-            <label for="content">Contenu</label><br />
-            <textarea id="content" name="content"></textarea>
-        </div>
-        <div>
-            <input type="submit" />
-        </div>
-    </form>
+    <ol class="breadcrumb">
+      <li class="breadcrumb-item">
+        <a href="index.php/home">Accueil</a>
+      </li>              
+      <li class="breadcrumb-item active">Ajouter un Post</li>
+    </ol>
+
+    <!-- Contact Form -->
+    <div class="row">
+      <div class="col-lg-8 mb-4">
+        <form id="blogForm" action="index.php/post/editPost/{{ post.id }}" method="post" novalidate>
+          <div class="control-group form-group">
+            <div class="controls">
+              <label>Auteur:</label>
+              <input type="text" class="form-control" name="author" id="author" required data-validation-required-message="Entrez un nom.">
+            </div>
+          </div>
+          <div class="control-group form-group">
+            <div class="controls">
+              <label>Titre:</label>
+              <input type="text" class="form-control" name="title" id="title" required data-validation-required-message="Entrez un titre.">
+            </div>
+          </div>
+          <div class="control-group form-group">
+            <div class="controls">
+              <label>Chapô:</label>
+              <textarea rows="5" cols="100" class="form-control" name="lead_paragraph" id="lead-paragraph" required data-validation-required-message="Entrez un chapô" maxlength="499" style="resize:none"></textarea>
+            </div>
+          </div>          
+          <div class="control-group form-group">
+            <div class="controls">
+              <label>Contenu:</label>
+              <textarea rows="10" cols="100" class="form-control" name="content" id="content" required data-validation-required-message="Entrez un contenu" maxlength="999" style="resize:none"></textarea>
+            </div>
+          </div>
+          <div id="success"></div>
+          <!-- For success/fail messages -->
+          <button type="submit" class="btn btn-primary" id="sendMessageButton">Ajouter</button>
+        </form>
+      </div>
+
+    </div>
+    <!-- /.row -->
 {% endblock %}

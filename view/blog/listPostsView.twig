@@ -1,26 +1,46 @@
 {% extends 'layout.twig' %}
 
 {% block title %}
-    Blog professionnel
+    Liste des posts - {{ parent() }}
 {% endblock %}
 
 {% block content %}
-    <h1>Derniers posts du blog :</h1>
+    <!-- Page Heading/Breadcrumbs -->
+    <h1 class="mt-4 mb-3">Liste des posts</h1>
+
+    <ol class="breadcrumb">
+      <li class="breadcrumb-item">
+        <a href="index.php/home">Accueil</a>
+      </li>
+      <li class="breadcrumb-item active">Liste des posts</li>
+    </ol>
+
     {% for post in posts %}
-        <article class="news">
-            <h3>
-                {{ post.title }}<br>
-                Par {{ post.author }} - 
-                <em>dernière modification {{ post.last_update_date|date("d/m/Y H:i:s") }}</em>
-            </h3>
-                
-            <p>
-                <strong>{{ post.lead_paragraph|nl2br }}</strong>
-                <br>
-                <em><a href="index.php/post/post/{{ post.id }}">Voir le post</a></em>
-                <br>
-                <em><a href="index.php/post/deletePost/{{ post.id }}">Supprimer le post</a></em>
-            </p>
-        </article>
+    <!-- Blog Post -->
+    <div class="card mb-4">
+      <div class="card-body">
+        <div class="row">
+          <div class="col-lg-6">
+            <a href="#">
+              <img class="img-fluid rounded" src="public/img/blog_post.jpg" alt="Blog Post">
+            </a>
+          </div>
+          <div class="col-lg-6">
+            <h2 class="card-title">{{ post.title }}</h2>
+            <p class="card-text">{{ post.lead_paragraph|nl2br }}</p>
+            <a href="index.php/post/post/{{ post.id }}" class="btn btn-primary">Voir Plus &rarr;</a>
+          </div>
+        </div>
+      </div>
+      <div class="card-footer text-muted">
+        Posté le {{ post.created_date|date("d/m/Y") }} par <span class="font-weight-bold">{{ post.author }}</span>
+        <div class="float-right">
+          <a href="index.php/post/deletePost/{{ post.id }}" class="btn btn-default btn-md">
+            <span class="fa fa-trash"></span> Supprimer 
+          </a>
+        </div>
+      </div>
+    </div>
     {% endfor %}
+
 {% endblock %}

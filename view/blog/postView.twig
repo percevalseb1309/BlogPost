@@ -1,62 +1,100 @@
 {% extends 'layout.twig' %}
 
 {% block title %}
-    {{ post.title }}
+    {{ post.title }} - {{ parent() }}
 {% endblock %}
 
 {% block content %}
-    <h1>{{ post.title }}</h1>
-    <p><a href="index.php/post">Retour à la liste des posts</a></p>
+    <!-- Page Heading/Breadcrumbs -->
+    <h1 class="mt-4 mb-3">{{ post.title }}</h1>
 
-    <article class="news">
-        <h3>
-        	{{ post.title }}<br>
-        	Par {{ post.author }} - 
-        	<em>date de création {{ post.created_date|date("d/m/Y H:i:s") }}</em> -
-            <em>dernière modification {{ post.last_update_date|date("d/m/Y H:i:s") }}</em>
-        </h3>
-            
+    <ol class="breadcrumb">
+      <li class="breadcrumb-item">
+        <a href="index.php/home">Accueil</a>
+      </li>
+      <li class="breadcrumb-item">
+        <a href="index.php/post">Liste des posts</a>
+      </li>  
+      <li class="breadcrumb-item active">{{ post.title }}</li>
+    </ol>
+
+    <div class="row">
+
+      <!-- Post Content Column -->
+      <div class="col-lg-12">
+
+        <hr>
+
+        <!-- Date/Time -->
         <p>
-        	<strong>{{ post.lead_paragraph|nl2br }}</strong>
-        	{{ post.content|nl2br }}
-        	<br>
-            <em><a href="index.php/post/postForm/{{ post.id }}">Modifier le post</a></em>
-    	</p>
-    </article>
+            {{ 'Posté le ' ~ post.created_date|date("d/m/Y") ~ ' par ' ~ post.author  }} 
+            <span class="font-italic">{{ ' - dernière mise à jour le ' ~ post.last_update_date|date("d/m/Y à H:i:s") }}</span>
+            <span class="float-right">
+              <a href="index.php/post/postForm/{{ post.id }}" class="btn btn-default btn-sm">
+                <span class="fa fa-pencil"></span> Modifier 
+              </a>
+            </span>
+        </p>
 
-    {% for comment in comments %}
-        <article class="comments">
-            <h3>
-                {{ comment.title }}<br>
-                Par {{ comment.author }} - 
-                <em>dernière modification {{ comment.created_date|date("d/m/Y H:i:s") }}</em>
-            </h3>
-                
-            <p>{{ comment.content|nl2br }}</p>
-        </article>
-    {% endfor %}
+        <hr>
 
-     <form action="index.php/post/newComment/{{ post.id }}" method="post">
-        <div class="form-group">
-            <div class="legend">
-                <strong>Ajouter un commentaire :</strong><br>
-                <span>champs requis <strong>*</strong></span>
-            </div>
+        <!-- Post Content -->
+        <p class="lead">{{ post.lead_paragraph|nl2br }}</p>
+
+        <p>{{ post.content|nl2br }}.</p>
+
+      </div>
+
+      <div class="col-md-8">
+        <hr>
+        <!-- Comments Form -->
+        <div class="card my-4">
+          <h5 class="card-header">Ajouter un commentaire:</h5>
+          <div class="card-body">
+            <form id="blogForm" action="index.php/post/newComment/{{ post.id }}" method="post" novalidate>
+              <div class="control-group form-group">
+                <div class="controls">
+                  <label>Auteur:</label>
+                  <input type="text" class="form-control" name="author" id="author" required data-validation-required-message="Entrez un nom.">
+                </div>
+              </div>
+              <div class="control-group form-group">
+                <div class="controls">
+                  <label>Titre:</label>
+                  <input type="text" class="form-control" name="title" id="title" required data-validation-required-message="Entrez un titre.">
+                </div>
+              </div>
+              <div class="control-group form-group">
+                <div class="controls">
+                  <label>Contenu:</label>
+                  <textarea rows="5" cols="100" class="form-control" name="content" id="content" required data-validation-required-message="Entrez un commentaire" maxlength="499" style="resize:none"></textarea>
+                </div>
+              </div>
+              <div id="success"></div>
+              <!-- For success/fail messages -->
+              <button type="submit" class="btn btn-primary" id="sendMessageButton">Ajouter</button>
+            </form>
+          </div>
         </div>
-        <div class="form-group">
-            <label for="author">Auteur<strong>*</strong> :</label>
-            <input type="text" class="form-control" name="author" id="author" placeholder="Auteur" required>
-        </div>        
-        <div class="form-group">
-            <label for="title">Titre<strong>*</strong> :</label>
-            <input type="text" class="form-control" name="title" id="title" placeholder="Titre" required>
-        </div>      
-        <div class="form-group">
-            <label for="content">Contenu<strong>*</strong> :</label>
-            <textarea class="form-control resizable" rows="5" name="content" id="content" placeholder="Contenu" required></textarea>
+
+
+        <!-- Single Comment -->
+        {% for comment in comments %}
+        <div class="media mb-4">
+          {# <img class="d-flex mr-3 rounded-circle" src="http://placehold.it/50x50" alt=""> #}
+          <i class="d-flex mr-3 fa fa-comment fa-2x"></i>
+          <div class="media-body">
+            <h5 class="mt-0">{{ comment.title }} 
+              <small> - commenté le {{ comment.created_date|date("d/m/Y H:i:s") }} par {{ comment.author }}</small>
+            </h5>
+            {{ comment.content|nl2br }}
+          </div>
         </div>
-        <div class="form-group">
-            <button type="submit" class="btn btn-default">Ajouter</button>
-        </div>
-    </form> 
+        {% endfor %}
+      </div>
+
+
+    </div>
+    <!-- /.row -->
+
 {% endblock %}

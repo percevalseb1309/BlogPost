@@ -5,11 +5,6 @@ class Request
 {
     private $_parameters;
 
-    public function __construct(array $parameters) 
-    {
-        $this->setParameter($parameters);
-    }
-
     public function isParameter($name) 
     {
         return (isset($this->_parameters[$name]) && $this->_parameters[$name] != "");

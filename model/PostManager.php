@@ -7,7 +7,7 @@ class PostManager extends Manager
 {
     public function getPosts()
     {
-        $sql = 'SELECT id, author, title, lead_paragraph, content, last_update_date FROM post ORDER BY last_update_date DESC LIMIT 0, 5';
+        $sql = 'SELECT id, author, title, lead_paragraph, content, created_date FROM post ORDER BY created_date DESC LIMIT 0, 5';
         $res = $this->executeRequest($sql);
         
         return $res->fetchAll();

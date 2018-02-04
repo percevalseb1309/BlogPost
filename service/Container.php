@@ -31,7 +31,7 @@ class Container
     public function getRequest()
     {
         if ($this->request === null) {
-            $this->request = new Request(array_merge($_GET, $_POST));
+            $this->request = new Request();
         }
         return $this->request;
     }
