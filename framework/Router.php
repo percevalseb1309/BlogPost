@@ -15,10 +15,8 @@ class Router
 	public function routeRequest()
 	{
 		try {
-            preg_match('#^/BlogPost/index.php?/(\w+)/?(\w+)?/?(\d+)?#i', $_SERVER['REQUEST_URI'], $matches);
-            echo '<pre>';
-            var_dump($matches);
-            echo '</pre>';
+			$path = preg_replace('#(.+)index.php(.+)#i', 'index.php$2', $_SERVER['REQUEST_URI']);
+         	preg_match('#^index.php?/(\w+)/?(\w+)?/?(\d+)?#i', $path, $matches);
 		    if ( ! empty($matches) && isset($matches[1])) { 
 		    	$_GET['controller'] = $matches[1];
 		    	if (isset($matches[2])) {
@@ -28,8 +26,6 @@ class Router
 		    		$_GET['id'] = $matches[3];
 		    	}
 		    }
-
-
 		    $this->_request->setParameter(array_merge($_GET, $_POST));
 		}
 		catch(\Exception $e) {
