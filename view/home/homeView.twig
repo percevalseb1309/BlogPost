@@ -5,9 +5,29 @@
 {% endblock %}
 
 {% block content %}
+  <h1 class="my-4">Bienvenue dans mon Blog Professionnel</h1>
+
+  <!-- Intro Content -->
+  <div class="row">
+    <div class="col-lg-4">
+      <img class="img-fluid rounded mb-4" src="public/img/personnal_photo.jpg" alt="photo personnel">
+    </div>
+    <div class="col-lg-8">
+      <h2>Sébastien Rochat</h2>
+      <p>Je suis actuellement à mi-parcours de la formation diplômante délivré par OpenClassrooms «&nbsp;Développeur d’application – PHP / Symfony&nbsp;» enregistré au RNCP, de niveau II reconnu par l’État.</p>
+      <p>Mon objectif est de parfaire mes connaissances et d’en acquérir de nouvelles afin d’avoir les armes dans la réalisation de projets dans une future entreprise. Depuis que je travaille en tant que développeur, j’utilise essentiellement le framework CodeIgniter écrit en PHP, mais mon contrat avec mon actuel employeur arrivera à terme d’ici quelques mois. Maitriser le framework Symfony, c’est savoir développer des sites dynamiques et performants ou encore être familier avec la Programmation Orientée Objet et Ajax. Faire le choix de ce parcours a été d’autant plus important que je souhaite me repositionner sur le marché de l’emploi.</p>
+      <p>Pour plus d’informations sur mon itinéraire personnel, vous pouvez télécharger mon CV ci-dessous.
+      </p>
+      <a href="public/doc/CV.doc" class="btn btn-info btn-sm" role="button">Télécharger le CV</a>
+    </div>
+  </div>
+  <!-- /.row -->
+
+  <hr>
+
   <!-- Contact Form -->
   <div class="row">
-    <div class="col-lg-8 mb-4">
+    <div class="col-lg-8 mb-2">
       <h3>Envoyez-moi un Message</h3>
       <form name="sentMessage" id="blogForm" action="index.php/home/contact" method="post" novalidate>
         <div class="control-group form-group">
@@ -42,4 +62,18 @@
 
   </div>
   <!-- /.row -->
+
+  <!--  social networks  -->
+  <div class="row mb-4">
+    <div class="col-md-8">
+      <hr>
+      <a class="btn btn-link" href="https://www.linkedin.com/in/s%C3%A9bastien-rochat-63849b13a/" target="_blank"><i class="fa fa-linkedin fa-2x"></i></a>
+      <a class="btn btn-link" href="https://github.com/percevalseb1309/" target="_blank"><i class="fa fa-github fa-2x"></i></a>
+      <a class="btn btn-link" href="#"><i class="fa fa-twitter fa-2x"></i></a>
+      <a class="btn btn-link" href="#"><i class="fa fa-facebook fa-2x"></i></a>
+      <a class="btn btn-link" href="#"><i class="fa fa-google-plus fa-2x"></i></a>
+      <a class="btn btn-link" href="#"><i class="fa fa-flickr fa-2x"></i></a>
+      <a class="btn btn-link" href="#"><i class="fa fa-spotify fa-2x"></i></a>
+    </div>
+  </div>
 {% endblock %}
