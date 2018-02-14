@@ -29,7 +29,7 @@
   <div class="row">
     <div class="col-lg-8 mb-2">
       <h3>Envoyez-moi un Message</h3>
-      <form name="sentMessage" id="blogForm" action="index.php/home/contact" method="post" novalidate>
+      <form action="index.php/home/contact" method="post" novalidate>
         <div class="control-group form-group">
           <div class="controls">
             <label>Nom:</label>
@@ -54,6 +54,7 @@
             <textarea rows="10" cols="100" class="form-control" name="message" id="message" required data-validation-required-message="Entrez votre message" maxlength="999" style="resize:none"></textarea>
           </div>
         </div>
+        <input type="hidden" name="token" id="token" value="{{ token }}" />
         <div id="success"></div>
         <!-- For success/fail messages -->
         <button type="submit" class="btn btn-primary" id="sendMessageButton">Envoyer le Message</button>
@@ -67,13 +68,15 @@
   <div class="row mb-4">
     <div class="col-md-8">
       <hr>
-      <a class="btn btn-link" href="https://www.linkedin.com/in/s%C3%A9bastien-rochat-63849b13a/" target="_blank"><i class="fa fa-linkedin fa-2x"></i></a>
-      <a class="btn btn-link" href="https://github.com/percevalseb1309/" target="_blank"><i class="fa fa-github fa-2x"></i></a>
-      <a class="btn btn-link" href="#"><i class="fa fa-twitter fa-2x"></i></a>
-      <a class="btn btn-link" href="#"><i class="fa fa-facebook fa-2x"></i></a>
-      <a class="btn btn-link" href="#"><i class="fa fa-google-plus fa-2x"></i></a>
-      <a class="btn btn-link" href="#"><i class="fa fa-flickr fa-2x"></i></a>
-      <a class="btn btn-link" href="#"><i class="fa fa-spotify fa-2x"></i></a>
+      <div class="float-right">
+        <a class="btn btn-link" href="https://www.linkedin.com/in/s%C3%A9bastien-rochat-63849b13a/" target="_blank"><i class="fa fa-linkedin fa-2x"></i></a>
+        <a class="btn btn-link" href="https://github.com/percevalseb1309/" target="_blank"><i class="fa fa-github fa-2x"></i></a>
+        <a class="btn btn-link" href="#"><i class="fa fa-twitter fa-2x"></i></a>
+        <a class="btn btn-link" href="#"><i class="fa fa-facebook fa-2x"></i></a>
+        <a class="btn btn-link" href="#"><i class="fa fa-google-plus fa-2x"></i></a>
+        <a class="btn btn-link" href="#"><i class="fa fa-flickr fa-2x"></i></a>
+        <a class="btn btn-link" href="#"><i class="fa fa-spotify fa-2x"></i></a>
+      </div>
     </div>
   </div>
 {% endblock %}

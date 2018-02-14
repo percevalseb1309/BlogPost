@@ -17,11 +17,14 @@ class HomeController extends Controller
 
     public function index()
     {
-        $this->generateView('home/home');
+        $data['token'] = $this->createToken();
+        $this->generateView('home/home', $data);
     }    
 
     public function contact()
     {
+        $this->checkToken();
+        
         $name       = $this->_request->getParameter("name");
         $first_name = $this->_request->getParameter("first_name");
         $email      = $this->_request->getParameter("email");

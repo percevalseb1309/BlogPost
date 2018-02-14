@@ -21,10 +21,10 @@
       <li class="breadcrumb-item active">Modifier le Post</li>
     </ol>
 
-    <!-- Contact Form -->
+    <!-- Post Form -->
     <div class="row">
       <div class="col-lg-8 mb-4">
-        <form id="blogForm" action="index.php/post/editPost/{{ post.id }}" method="post" novalidate>
+        <form action="index.php/post/editPost/{{ post.id }}" method="post" novalidate>
           <div class="control-group form-group">
             <div class="controls">
               <label>Auteur:</label>
@@ -49,6 +49,7 @@
               <textarea rows="10" cols="100" class="form-control" name="content" id="content" required data-validation-required-message="Entrez un contenu" maxlength="999" style="resize:none">{{ post.content|nl2br }}</textarea>
             </div>
           </div>
+          <input type="hidden" name="token" id="token" value="{{ token }}" />
           <div id="success"></div>
           <!-- For success/fail messages -->
           <button type="submit" class="btn btn-primary" id="sendMessageButton">Modifier</button>
