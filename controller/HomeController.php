@@ -2,17 +2,15 @@
 namespace OC\BlogPost\Controller;
 
 use \OC\BlogPost\Framework\Controller;
-use OC\BlogPost\Framework\View;
 use \OC\BlogPost\Service\Email;
 
 class HomeController extends Controller
 {
     private $mailer;
 
-    public function __construct(\Twig_Environment $twig, View $view, Email $mailer)
+    public function __construct()
     {
-        parent::__construct($twig, $view);
-        $this->mailer = $mailer;
+        $this->mailer = $mailer = new Email;
     }
 
     public function index()

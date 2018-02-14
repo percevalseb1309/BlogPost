@@ -4,20 +4,18 @@ session_start();
 
 abstract class Controller 
 {
-    private $_twig;
-    private $_action;
     protected $_request;
+    private $_action;
     private $_view;
-
-    public function __construct(\Twig_Environment $twig, View $view)
-    {
-        $this->_twig = $twig;
-        $this->_view = $view;
-    }
 
     public function setRequest(Request $request)
     {
         $this->_request = $request;
+    }    
+
+    public function setView(View $view)
+    {
+        $this->_view = $view;
     }
 
     public function executeAction($action)
