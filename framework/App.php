@@ -1,7 +1,7 @@
 <?php
 namespace OC\BlogPost\Framework;
 
-use OC\BlogPost\Service\Container;
+use OC\BlogPost\Framework\Container;
 
 class App
 {
@@ -23,40 +23,21 @@ class App
 
     private function run()
     {
-        $this->container->getRouter()->routeRequest();
-
-        $controller = $this->createController();
-        $action = $this->createAction();
-
-        $controller->executeAction($action);
-    }
-
-    public function createController() {
-        $controller = "Home";
-        if ($this->container->getRequest()->isParameter('controller')) {
-            $controller = $this->container->getRequest()->getParameter('controller');
-            $controller = ucfirst(strtolower($controller));
-        }
-
-        $controllerClass = $controller. "Controller";
-        $controllerFile = "controller/" . $controllerClass . ".php";
-        $controllerClassWithNamespace = "\OC\BlogPost\Controller\\" .$controllerClass;
-        if (file_exists($controllerFile)) {
-            require_once($controllerFile);
-            $controller = $this->container->getController($controllerClassWithNamespace);
-            $controller->setRequest($this->container->getRequest());
-            return $controller;
-        }
-        else {
-            throw new \Exception("Fichier '". $controllerFile. "' introuvable");
+        try {
+            $router = $this->container->getRouter(); 
+            $router->routeRequest(); 
+            $controllerClass = $router->createController(); 
+            $controller = $this->container->getController($controllerClass);
+            $action = $router->createAction();
+            $controller->executeAction($action);
+        }  
+        catch(\Exception $e) {
+            $this->error($e->getMessage());
         }
     }
 
-    public function createAction() {
-        $action = 'index';
-        if ($this->container->getRequest()->isParameter('action')) {
-            $action = $this->container->getRequest()->getParameter('action');
-        }
-        return $action;
+    public function error($errorMessage)
+    {
+        $this->container->getView()->generate(['errorMessage' => $errorMessage]);
     }
 }
