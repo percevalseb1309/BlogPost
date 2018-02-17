@@ -4,14 +4,28 @@ namespace OC\BlogPost\Framework;
 use OC\BlogPost\Framework\Router;
 use OC\BlogPost\Framework\Request;
 use OC\BlogPost\Framework\View;
+use OC\BlogPost\Framework\Loader;
 
 class Container
 {
+    protected static $instance;
     private $_router;
     private $_request;
     private $_view;
     private $_twig;
     private $_controller;
+    private $_loader;
+    private $_service;
+    private $_model;
+
+    protected function __construct() { } 
+
+    public static function getInstance() {
+        if ( ! SELF::$instance) {
+            SELF::$instance = new SELF();
+        }
+        return SELF::$instance;
+    } 
 
     /**
      * @return Router
@@ -57,34 +71,34 @@ class Container
     public function getController($controller)
     {
         if ($this->_controller === null) {
-            $this->_controller = new $controller();
+            $this->_controller = new $controller($this->getLoader());
             $this->_controller->setRequest($this->getRequest());
             $this->_controller->setView($this->getView());
         }
         return $this->_controller;
     }
 
-    /*public function getPostManager()
+    public function getLoader()
     {
-        if ($this->_postManager === null) {
-            $this->_postManager = new PostManager();
+        if ($this->_loader === null) {
+            $this->_loader = new Loader;
         }
-        return $this->_postManager;
+        return $this->_loader;
     }
 
-    public function getCommentManager()
+    public function getService($index, $service)
     {
-        if ($this->_commentManager === null) {
-            $this->_commentManager = new CommentManager();
+        if ($this->_service === null || ! (isset($this->_service[$index]) && empty($this->_service[$index]))) {
+            $this->_service[$index] = new $service;
         }
-        return $this->_commentManager;
-    }
+        return $this->_service[$index];
+    }    
 
-    public function getMailer()
+    public function getModel($index, $model)
     {
-        if ($this->_mailer === null) {
-            $this->_mailer = new Email();
+        if ($this->_model === null || ! (isset($this->_model[$index]) && empty($this->_model[$index]))) {
+            $this->_model[$index] = new $model;
         }
-        return $this->_mailer;
-    }*/
+        return $this->_model[$index];
+    }
 }

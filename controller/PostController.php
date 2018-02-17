@@ -2,18 +2,19 @@
 namespace OC\BlogPost\Controller;
 
 use \OC\BlogPost\Framework\Controller;
-use \OC\BlogPost\Model\PostManager;
-use \OC\BlogPost\Model\CommentManager;
+use \OC\BlogPost\Framework\Loader;
 
 class PostController extends Controller
 {
+    private $_token;
     private $_postManager;
     private $_commentManager;
 
-    public function __construct()
+    public function __construct(Loader $loader)
     {
-        $this->_postManager    = new PostManager();
-        $this->_commentManager = new CommentManager();
+        $this->_token          = $loader->service('token');
+        $this->_postManager    = $loader->model('post');
+        $this->_commentManager = $loader->model('comment');
     }
 
     public function index()
@@ -40,13 +41,13 @@ class PostController extends Controller
         $postId = $this->_request->getParameter("id"); 
         $data['post']     = $this->_postManager->getPost($postId);
         $data['comments'] = $this->_commentManager->getComments($postId);
-        $data['token']    = $this->createToken();
+        $data['token']    = $this->_token->createToken();
         $this->generateView('blog/post', $data);
     }
 
     public function newComment()
     {
-        $this->checkToken();
+        $this->_token->checkToken();
 
         $postId         = $this->_request->getParameter("id");
         $author         = $this->_request->getParameter("author");
@@ -66,13 +67,13 @@ class PostController extends Controller
     {
         $postId = $this->_request->getParameter("id");
         $data['post']  = $this->_postManager->getPost($postId);
-        $data['token'] = $this->createToken();
+        $data['token'] = $this->_token->createToken();
         $this->generateView('blog/editPostForm', $data);
     }
 
     public function editPost()
     {
-        $this->checkToken();
+        $this->_token->checkToken();
 
         $postId         = $this->_request->getParameter("id");
         $author         = $this->_request->getParameter("author");
@@ -91,13 +92,13 @@ class PostController extends Controller
 
     public function newPostForm()
     {
-        $data['token'] = $this->createToken();
+        $data['token'] = $this->_token->createToken();
         $this->generateView('blog/addPostForm', $data);
     }
 
     public function newPost()
     {
-        $this->checkToken();
+        $this->_token->checkToken();
 
         $author         = $this->_request->getParameter("author");
         $title          = $this->_request->getParameter("title");

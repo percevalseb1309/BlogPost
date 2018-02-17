@@ -8,7 +8,7 @@ class App
     /**
      * @var Container
      */
-    private $container;
+    private $_container;
 
     public function __construct()
     {
@@ -18,26 +18,20 @@ class App
 
     private function init()
     {
-        $this->container = new Container();
+        $this->_container = Container::getInstance();
     }
 
     private function run()
     {
         try {
-            $router = $this->container->getRouter(); 
-            $router->routeRequest(); 
-            $controllerClass = $router->createController(); 
-            $controller = $this->container->getController($controllerClass);
-            $action = $router->createAction();
-            $controller->executeAction($action);
-        }  
-        catch(\Exception $e) {
+            $router = $this->_container->getRouter()->routeRequest(); 
+        } catch(\Exception $e) {
             $this->error($e->getMessage());
         }
     }
 
-    public function error($errorMessage)
+    private function error($errorMessage)
     {
-        $this->container->getView()->generate(['errorMessage' => $errorMessage]);
+        $this->_container->getView()->generate(['errorMessage' => $errorMessage]);
     }
 }
