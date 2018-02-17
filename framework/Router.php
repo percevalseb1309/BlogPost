@@ -1,15 +1,19 @@
 <?php
 namespace OC\BlogPost\Framework;
 
+use OC\BlogPost\Framework\Container;
+
 class Router 
 {
+	private $_container;
 	private $_request;
 	private $_view;
 
 	public function __construct(Request $request, View $view)
 	{
-		$this->_request = $request;
-		$this->_view    = $view;
+		$this->_container = Container::getInstance();
+		$this->_request   = $request;
+		$this->_view      = $view;
 	}
 
 	public function routeRequest()
@@ -27,6 +31,10 @@ class Router
 	    }
 
 	    $this->_request->setParameter(array_merge($_GET, $_POST));
+
+	    $controller = $this->createController(); 
+	    $action = $this->createAction();
+	    $controller->executeAction($action);
 	}
 
 	public function createController() {
@@ -41,8 +49,8 @@ class Router
 	    $controllerClassWithNamespace = "\OC\BlogPost\Controller\\" .$controllerClass;
 	    if (file_exists($controllerFile)) {
 	        require_once($controllerFile);
-	        
-	        return $controllerClassWithNamespace;
+	        $controller = $this->_container->getController($controllerClassWithNamespace);
+	        return $controller;
 	    }
 	    else {
 	        throw new \Exception("Fichier '". $controllerFile. "' introuvable");
