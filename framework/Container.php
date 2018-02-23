@@ -8,35 +8,109 @@ use OC\BlogPost\Framework\Loader;
 
 class Container
 {
-    protected static $instance;
-    private $_router;
-    private $_request;
-    private $_view;
-    private $_twig;
-    private $_controller;
-    private $_loader;
-    private $_service;
-    private $_model;
-
-    protected function __construct() { } 
-
-    public static function getInstance() {
-        if ( ! SELF::$instance) {
-            SELF::$instance = new SELF();
-        }
-        return SELF::$instance;
-    } 
+    /**
+     * 
+     * @var Container
+     * @access private
+     */
+    private static $_instance;
 
     /**
+     * 
+     * @var Router
+     * @access private
+     */
+    private $_router;
+
+    /**
+     * 
+     * @var Request
+     * @access private
+     */
+    private $_request;
+
+    /**
+     * 
+     * @var View
+     * @access private
+     */
+    private $_view;
+
+    /**
+     * 
+     * @var Twig_Environment
+     * @access private
+     */
+    private $_twig;
+
+    /**
+     * 
+     * @var Controller
+     * @access private
+     */
+    private $_controller;
+
+    /**
+     * 
+     * @var Loader
+     * @access private
+     */
+    private $_loader;
+
+    /**
+     * 
+     * @var array
+     * @access private
+     */
+    private $_service;
+
+    /**
+     * 
+     * @var array
+     * @access private
+     */
+    private $_model;
+
+
+    /**
+     * @access private
+     * @return void
+     */
+
+    private function __construct() { } 
+
+
+    /**
+     * @access public
+     * @return Container
+     */
+
+    public static function getInstance() {
+        if ( ! SELF::$_instance) {
+            SELF::$_instance = new SELF();
+        }
+        return SELF::$_instance;
+    } 
+
+
+    /**
+     * @access public
      * @return Router
      */
+
     public function getRouter()
     {
         if ($this->_router === null) {
-            $this->_router = new Router($this->getRequest(), $this->getView());
+            $this->_router = new Router($this->getRequest());
         }
         return $this->_router;
     }
+
+
+    /**
+     * @access public
+     * @return Request
+     */
 
     public function getRequest()
     {
@@ -44,7 +118,13 @@ class Container
             $this->_request = new Request();
         }
         return $this->_request;
-    }    
+    } 
+
+
+    /**
+     * @access public
+     * @return View
+     */   
 
     public function getView()
     {
@@ -54,9 +134,12 @@ class Container
         return $this->_view;
     }
 
+
     /**
-     * @return \Twig_Environment
+     * @access public
+     * @return Twig_Environment
      */
+    
     public function getTwig()
     {
         if ($this->_twig === null) {
@@ -68,6 +151,12 @@ class Container
         return $this->_twig;
     }
 
+
+    /**
+     * @access public
+     * @return Controller
+     */
+
     public function getController($controller)
     {
         if ($this->_controller === null) {
@@ -78,6 +167,12 @@ class Container
         return $this->_controller;
     }
 
+
+    /**
+     * @access public
+     * @return Loader
+     */
+
     public function getLoader()
     {
         if ($this->_loader === null) {
@@ -86,13 +181,25 @@ class Container
         return $this->_loader;
     }
 
+
+    /**
+     * @access public
+     * @return Email|token
+     */
+
     public function getService($index, $service)
     {
         if ($this->_service === null || ! (isset($this->_service[$index]) && empty($this->_service[$index]))) {
             $this->_service[$index] = new $service;
         }
         return $this->_service[$index];
-    }    
+    } 
+
+
+    /**
+     * @access public
+     * @return PostManager|CommentManger
+     */   
 
     public function getModel($index, $model)
     {

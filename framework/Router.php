@@ -5,16 +5,38 @@ use OC\BlogPost\Framework\Container;
 
 class Router 
 {
+	/**
+	 * 
+	 * @var Container
+	 * @access private
+	 */
 	private $_container;
-	private $_request;
-	private $_view;
 
-	public function __construct(Request $request, View $view)
+	/**
+	 * 
+	 * @var Request
+	 * @access private
+	 */
+	private $_request;
+
+	/**
+	 * @access public
+	 * @param Request $request 
+	 * @param View $view 
+	 * @return void
+	 */
+
+	public function __construct(Request $request)
 	{
 		$this->_container = Container::getInstance();
 		$this->_request   = $request;
-		$this->_view      = $view;
 	}
+
+
+	/**
+	 * @access public
+	 * @return void
+	 */
 
 	public function routeRequest()
 	{
@@ -26,7 +48,7 @@ class Router
 	    		$_GET['action'] = $matches[2];
 	    	}		    	
 	    	if (isset($matches[3])) {
-	    		$_GET['id'] = $matches[3];
+	    		$_GET['id'] = (int) $matches[3];
 	    	}
 	    }
 
@@ -37,7 +59,13 @@ class Router
 	    $controller->executeAction($action);
 	}
 
-	public function createController() {
+
+	/**
+	 * @access private
+	 * @return Controller
+	 */
+
+	private function createController() {
 	    $controller = DEFAULT_CONTROLLER;
 	    if ($this->_request->isParameter('controller')) {
 	        $controller = $this->_request->getParameter('controller');
@@ -57,7 +85,13 @@ class Router
 	    }
 	}
 
-	public function createAction() {
+
+	/**
+	 * @access private
+	 * @return string
+	 */
+
+	private function createAction() {
 	    $action = 'index';
 	    if ($this->_request->isParameter('action')) {
 	        $action = $this->_request->getParameter('action');

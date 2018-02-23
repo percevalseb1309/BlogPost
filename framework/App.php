@@ -6,9 +6,17 @@ use OC\BlogPost\Framework\Container;
 class App
 {
     /**
+     * 
      * @var Container
+     * @access private
      */
     private $_container;
+
+
+    /**
+     * @access public
+     * @return void
+     */
 
     public function __construct()
     {
@@ -16,10 +24,22 @@ class App
         $this->run();
     }
 
+
+    /**
+     * @access private
+     * @return void
+     */
+
     private function init()
     {
         $this->_container = Container::getInstance();
     }
+
+
+    /**
+     * @access private
+     * @return void
+     */
 
     private function run()
     {
@@ -29,6 +49,13 @@ class App
             $this->error($e->getMessage());
         }
     }
+
+
+    /**
+     * @access private
+     * @param string $errorMessage 
+     * @return void
+     */
 
     private function error($errorMessage)
     {

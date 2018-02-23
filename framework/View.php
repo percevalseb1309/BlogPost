@@ -3,14 +3,39 @@ namespace OC\BlogPost\Framework;
 
 class View 
 {
+    /**
+     * 
+     * @var Twig_Environnment
+     * @access private
+     */
     private $_twig;
+
+    /**
+     * 
+     * @var string
+     * @access private
+     */
     private $_file;
+
+    
+    /**
+     * @access public
+     * @param Twig_Environnment $twig 
+     * @return void
+     */
 
     public function __construct(\Twig_Environment $twig) 
     {
         $this->_twig = $twig;
         $this->_file = 'errorView.twig';
     }
+
+
+    /**
+     * @access public
+     * @param array $data 
+     * @return void
+     */
 
     public function generate($data = array()) 
     {
@@ -21,6 +46,13 @@ class View
             throw new \Exception('Fichier ' .$this->_file .' introuvable');
         }
     }
+
+
+    /**
+     * @access public
+     * @param string $view 
+     * @return void
+     */
 
     public function setView($view) 
     {

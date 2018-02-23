@@ -5,7 +5,20 @@ use \OC\BlogPost\Framework\Configuration;
 
 abstract class Manager
 {
+	/**
+	 * 
+	 * @var PDO
+	 * @access private
+	 */
 	private static $_db;
+
+
+	/**
+	 * @access protected
+	 * @param string $sql 
+	 * @param array $params 
+	 * @return PDOStatement
+	 */
 
 	protected function executeRequest($sql, $params = null) 
 	{
@@ -18,6 +31,12 @@ abstract class Manager
 		}
 		return $req;
 	}
+
+
+	/**
+	 * @access private
+	 * @return PDO
+	 */
 
     private static function dbConnect()
     {

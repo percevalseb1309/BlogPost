@@ -6,8 +6,26 @@ use \OC\BlogPost\Framework\Loader;
 
 class HomeController extends Controller
 {
+    /**
+     * 
+     * @var Token
+     * @access private
+     */
     private $_token;
+
+    /**
+     * 
+     * @var Mailer
+     * @access private
+     */
     private $_mailer;
+
+
+    /**
+     * @access public
+     * @param Loader $loader 
+     * @return void
+     */
 
     public function __construct(Loader $loader)
     {
@@ -15,11 +33,23 @@ class HomeController extends Controller
         $this->_mailer = $loader->service('email');
     }
 
+
+    /**
+     * @access public
+     * @return void
+     */
+
     public function index()
     {
         $data['token'] = $this->_token->createToken();
         $this->generateView('home/home', $data);
-    }    
+    } 
+
+
+    /**
+     * @access public
+     * @return void
+     */   
 
     public function contact()
     {
@@ -35,7 +65,7 @@ class HomeController extends Controller
         $this->_mailer->from([$email => $username]);
         $this->_mailer->message($message);
 
-        $this->_mailer->send($message);
+        $this->_mailer->send();
         header('Location: ' .BASE_URL. 'index.php/home');
 
         /*if ( ! $this->_mailer->send($message)) {

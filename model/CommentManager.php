@@ -5,7 +5,15 @@ use \OC\BlogPost\Framework\Manager;
 
 class CommentManager extends Manager
 {
-    public function getcomments($postId)
+
+
+    /**
+     * @access public
+     * @param int $postId 
+     * @return array
+     */
+    
+    public function getComments($postId)
     {
         $sql = 'SELECT author, title, content, created_date FROM comment WHERE post_id = ? ORDER BY created_date DESC';
         $params = array($postId);
@@ -13,6 +21,16 @@ class CommentManager extends Manager
         
         return $res->fetchAll();
     }
+
+
+    /**
+     * @access public
+     * @param int $postId 
+     * @param string $author 
+     * @param string $title 
+     * @param string $content 
+     * @return PDOStatement
+     */
 
     public function addComment($postId, $author, $title, $content)
     {
