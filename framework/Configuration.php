@@ -3,7 +3,19 @@ namespace OC\BlogPost\Framework;
 
 class Configuration 
 {
+	/**
+	 * 
+	 * @var array
+	 * @access private
+	 */
 	private static $_parameters;
+
+
+	/**
+	 * @access public
+	 * @param string $name 
+	 * @return string
+	 */
 
 	public static function get($name) 
 	{
@@ -12,6 +24,12 @@ class Configuration
 		}
 	   	return NULL;
 	}
+
+
+	/**
+	 * @access private
+	 * @return array
+	 */
 
 	private static function getParameters() 
 	{ 

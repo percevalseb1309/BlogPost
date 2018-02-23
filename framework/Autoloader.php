@@ -3,12 +3,26 @@ namespace OC\BlogPost\Framework;
 
 class Autoloader
 {
-    static function register()
+
+    /**
+     * @access public
+     * @return void
+     */
+    
+
+    public static function register()
     {
         spl_autoload_register(array(__CLASS__, 'autoload'));
     }
 
-    static function autoload($class)
+
+    /**
+     * @access public
+     * @param string $class 
+     * @return void
+     */
+    
+    public static function autoload($class)
     {
         if (preg_match("#^OC\\\\BlogPost\\\\(\w+)\\\\(\w+)$#i", $class, $matches)) {
             if (isset($matches[1]) && isset($matches[2])) { 
