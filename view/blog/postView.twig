@@ -10,10 +10,10 @@
 
     <ol class="breadcrumb">
       <li class="breadcrumb-item">
-        <a href="index.php/home">Accueil</a>
+        <a href="home">Accueil</a>
       </li>
       <li class="breadcrumb-item">
-        <a href="index.php/post">Liste des posts</a>
+        <a href="post">Liste des posts</a>
       </li>  
       <li class="breadcrumb-item active">{{ post.title }}</li>
     </ol>
@@ -30,7 +30,7 @@
             {{ 'Posté le ' ~ post.created_date|date("d/m/Y") ~ ' par ' ~ post.author  }} 
             <span class="font-italic">{{ ' - dernière mise à jour le ' ~ post.last_update_date|date("d/m/Y à H:i:s") }}</span>
             <span class="float-right">
-              <a href="index.php/post/postForm/{{ post.id }}" class="btn btn-default btn-sm">
+              <a href="post/postForm/{{ post.id }}" class="btn btn-default btn-sm">
                 <span class="fa fa-pencil"></span> Modifier 
               </a>
             </span>
@@ -51,7 +51,7 @@
         <div class="card my-4">
           <h5 class="card-header">Ajouter un commentaire:</h5>
           <div class="card-body">
-            <form action="index.php/post/newComment/{{ post.id }}" method="post" novalidate>
+            <form action="post/newComment/{{ post.id }}" method="post" novalidate>
               <div class="control-group form-group">
                 <div class="controls">
                   <label>Auteur:</label>

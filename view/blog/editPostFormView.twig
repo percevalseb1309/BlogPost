@@ -10,13 +10,13 @@
 
     <ol class="breadcrumb">
       <li class="breadcrumb-item">
-        <a href="index.php/home">Accueil</a>
+        <a href="home">Accueil</a>
       </li> 
       <li class="breadcrumb-item">
-        <a href="index.php/post">Liste des posts</a>
+        <a href="post">Liste des posts</a>
       </li>       
       <li class="breadcrumb-item">
-        <a href="index.php/post/post/{{ post.id }}">{{ post.title }}</a>
+        <a href="post/post/{{ post.id }}">{{ post.title }}</a>
       </li>
       <li class="breadcrumb-item active">Modifier le Post</li>
     </ol>
@@ -24,7 +24,7 @@
     <!-- Post Form -->
     <div class="row">
       <div class="col-lg-8 mb-4">
-        <form action="index.php/post/editPost/{{ post.id }}" method="post" novalidate>
+        <form action="post/editPost/{{ post.id }}" method="post" novalidate>
           <div class="control-group form-group">
             <div class="controls">
               <label>Auteur:</label>

@@ -40,7 +40,7 @@ class Router
 
 	public function routeRequest()
 	{
-		$path = preg_replace('#(.+)index.php(.+)#i', 'index.php$2', $_SERVER['REQUEST_URI']);
+		/*$path = preg_replace('#(.+)index.php(.+)#i', 'index.php$2', $_SERVER['REQUEST_URI']);
      	preg_match('#^index.php?/(\w+)/?(\w+)?/?(\d+)?#i', $path, $matches);
 	    if ( ! empty($matches) && isset($matches[1])) { 
 	    	$_GET['controller'] = $matches[1];
@@ -50,7 +50,7 @@ class Router
 	    	if (isset($matches[3])) {
 	    		$_GET['id'] = (int) $matches[3];
 	    	}
-	    }
+	    }*/
 
 	    $this->_request->setParameter(array_merge($_GET, $_POST));
 

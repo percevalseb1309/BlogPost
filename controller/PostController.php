@@ -68,7 +68,7 @@ class PostController extends Controller
             throw new \Exception('Impossible de supprimer le post !');
         }
         else {
-            header('Location: ' .BASE_URL. 'index.php/post');
+            header('Location: ' .BASE_URL. 'post');
         }
     }
 
@@ -107,7 +107,7 @@ class PostController extends Controller
             throw new \Exception("Impossible d'ajouter un commentaire !");
         }
         else {
-            header('Location: ' .BASE_URL. 'index.php/post/post/' .$postId);
+            header('Location: ' .BASE_URL. 'post/post/' .$postId);
         }
     }
 
@@ -146,7 +146,7 @@ class PostController extends Controller
             throw new \Exception('Impossible de modifier le post !');
         }
         else {
-            header('Location: ' .BASE_URL. 'index.php/post/post/' .$postId);
+            header('Location: ' .BASE_URL. 'post/post/' .$postId);
         }
     } 
 
@@ -182,7 +182,7 @@ class PostController extends Controller
             throw new \Exception("Impossible d'ajouter un post !");
         }
         else {
-            header('Location: ' .BASE_URL. 'index.php/post');
+            header('Location: ' .BASE_URL. 'post');
         }
     }
 }
