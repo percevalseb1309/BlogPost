@@ -63,15 +63,16 @@ class HomeController extends Controller
 
         $this->_mailer->subject('Message de '.$username);
         $this->_mailer->from([$email => $username]);
+        // $this->_mailer->to(['email address' => 'Blog Professionnel']);
         $this->_mailer->message($message);
 
         $this->_mailer->send();
-        header('Location: ' .BASE_URL. 'index.php/home');
+        header('Location: ' .BASE_URL. 'home');
 
-        /*if ( ! $this->_mailer->send($message)) {
+        /*if ( ! $this->_mailer->send()) {
             throw new \Exception("Le mail n'a pas été pas envoyé !");
         } else {
-            header('Location: ' .BASE_URL. 'index.php/home');
+            header('Location: ' .BASE_URL. 'home');
         }*/
     }
 }

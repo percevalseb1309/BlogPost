@@ -10,7 +10,7 @@
 
     <ol class="breadcrumb">
       <li class="breadcrumb-item">
-        <a href="index.php/home">Accueil</a>
+        <a href="home">Accueil</a>
       </li>
       <li class="breadcrumb-item active">Liste des posts</li>
     </ol>
@@ -21,21 +21,21 @@
       <div class="card-body">
         <div class="row">
           <div class="col-lg-6">
-            <a href="index.php/post/post/{{ post.id }}">
+            <a href="post/post/{{ post.id }}">
               <img class="img-fluid rounded" src="public/img/blog_post.jpg" alt="Blog Post">
             </a>
           </div>
           <div class="col-lg-6">
             <h2 class="card-title">{{ post.title }}</h2>
             <p class="card-text">{{ post.lead_paragraph|nl2br }}</p>
-            <a href="index.php/post/post/{{ post.id }}" class="btn btn-info">Voir Plus &rarr;</a>
+            <a href="post/post/{{ post.id }}" class="btn btn-info">Voir Plus &rarr;</a>
           </div>
         </div>
       </div>
       <div class="card-footer text-muted">
         Posté le {{ post.created_date|date("d/m/Y") }} par <span class="font-weight-bold">{{ post.author }}</span>
         <div class="float-right">
-          <a href="index.php/post/deletePost/{{ post.id }}" class="btn btn-default btn-md">
+          <a href="post/deletePost/{{ post.id }}" class="btn btn-default btn-md">
             <span class="fa fa-trash"></span> Supprimer 
           </a>
         </div>
