@@ -27,8 +27,8 @@
 
         <!-- Date/Time -->
         <p>
-            {{ 'Posté le ' ~ post.created_date|date("d/m/Y") ~ ' par ' ~ post.author  }} 
-            <span class="font-italic">{{ ' - dernière mise à jour le ' ~ post.last_update_date|date("d/m/Y à H:i:s") }}</span>
+            {{ 'Posté le ' ~ post.createdDate|date("d/m/Y") ~ ' par ' ~ post.author  }} 
+            <span class="font-italic">{{ ' - dernière mise à jour le ' ~ post.lastUpdateDate|date("d/m/Y à H:i:s") }}</span>
             <span class="float-right">
               <a href="post/postForm/{{ post.id }}" class="btn btn-default btn-sm">
                 <span class="fa fa-pencil"></span> Modifier 
@@ -39,9 +39,9 @@
         <hr>
 
         <!-- Post Content -->
-        <p class="lead">{{ post.lead_paragraph|nl2br }}</p>
+        <p class="lead">{{ post.leadParagraph|nl2br }}</p>
 
-        <p>{{ post.content|nl2br }}.</p>
+        <p>{{ post.content|nl2br }}</p>
 
       </div>
 
@@ -86,7 +86,7 @@
           <i class="d-flex mr-3 fa fa-comment fa-2x"></i>
           <div class="media-body">
             <h5 class="mt-0">{{ comment.title }} 
-              <small> - commenté le {{ comment.created_date|date("d/m/Y H:i:s") }} par {{ comment.author }}</small>
+              <small> - commenté le {{ comment.createdDate|date("d/m/Y H:i:s") }} par {{ comment.author }}</small>
             </h5>
             {{ comment.content|nl2br }}
           </div>

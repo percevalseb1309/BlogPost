@@ -1,11 +1,6 @@
 <?php
 namespace OC\BlogPost\Framework;
 
-use OC\BlogPost\Framework\Router;
-use OC\BlogPost\Framework\Request;
-use OC\BlogPost\Framework\View;
-use OC\BlogPost\Framework\Loader;
-
 class Container
 {
     /**
@@ -69,7 +64,8 @@ class Container
      * @var array
      * @access private
      */
-    private $_model;
+    private $_model;    
+
 
 
     /**
@@ -204,8 +200,8 @@ class Container
     public function getModel($index, $model)
     {
         if ($this->_model === null || ! (isset($this->_model[$index]) && empty($this->_model[$index]))) {
-            $this->_model[$index] = new $model;
+            $this->_model[$index] = new $model();
         }
         return $this->_model[$index];
-    }
+    }    
 }
