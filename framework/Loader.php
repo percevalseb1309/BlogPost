@@ -46,6 +46,6 @@ class Loader
     public function model($model)
     {
         $modelClassWithNamespace = "\OC\BlogPost\Model\\".ucfirst(strtolower($model))."Manager";
-        return $this->_container->getService($model, $modelClassWithNamespace);
-    }
+        return $this->_container->getModel($model, $modelClassWithNamespace);
+    }    
 }

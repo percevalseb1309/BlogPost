@@ -3,6 +3,8 @@ namespace OC\BlogPost\Controller;
 
 use \OC\BlogPost\Framework\Controller;
 use \OC\BlogPost\Framework\Loader;
+use \OC\BlogPost\Entity\Post;
+use \OC\BlogPost\Entity\Comment;
 
 class PostController extends Controller
 {
@@ -25,7 +27,8 @@ class PostController extends Controller
      * @var CommentManager
      * @access private
      */
-    private $_commentManager;
+    private $_commentManager;    
+
 
 
     /**
@@ -38,7 +41,7 @@ class PostController extends Controller
     {
         $this->_token          = $loader->service('token');
         $this->_postManager    = $loader->model('post');
-        $this->_commentManager = $loader->model('comment');
+        $this->_commentManager = $loader->model('comment');        
     }
 
 
@@ -62,7 +65,8 @@ class PostController extends Controller
     public function deletePost()
     {
         $postId = $this->_request->getParameter("id");
-        $affectedLines = $this->_postManager->deletePost($postId);
+        $post = $this->_postManager->getPost($postId);
+        $affectedLines = $this->_postManager->deletePost($post);
 
         if ($affectedLines === false) {
             throw new \Exception('Impossible de supprimer le post !');
@@ -97,11 +101,14 @@ class PostController extends Controller
     {
         $this->_token->checkToken();
 
-        $postId         = $this->_request->getParameter("id");
-        $author         = $this->_request->getParameter("author");
-        $title          = $this->_request->getParameter("title");
-        $content        = $this->_request->getParameter("content");
-        $affectedLines  = $this->_commentManager->addComment($postId, $author, $title, $content);
+        $postId = $this->_request->getParameter("id");
+        $comment = new COMMENT(array(
+            'postId'        => $postId,
+            'author'        => $this->_request->getParameter("author"),
+            'title'         => $this->_request->getParameter("title"),
+            'content'       => $this->_request->getParameter("content")
+        ));
+        $affectedLines = $this->_commentManager->addComment($comment);
 
         if ($affectedLines === false) {
             throw new \Exception("Impossible d'ajouter un commentaire !");
@@ -135,12 +142,15 @@ class PostController extends Controller
     {
         $this->_token->checkToken();
 
-        $postId        = $this->_request->getParameter("id");
-        $author        = $this->_request->getParameter("author");
-        $title         = $this->_request->getParameter("title");
-        $leadParagraph = $this->_request->getParameter("lead_paragraph");
-        $content       = $this->_request->getParameter("content");
-        $affectedLines = $this->_postManager->updatePost($postId, $author, $title, $leadParagraph, $content);
+        $postId = $this->_request->getParameter("id");
+        $post = new POST(array(
+            'id'            => $postId,
+            'author'        => $this->_request->getParameter("author"),
+            'title'         => $this->_request->getParameter("title"),
+            'leadParagraph' => $this->_request->getParameter("leadParagraph"),
+            'content'       => $this->_request->getParameter("content")
+        ));
+        $affectedLines = $this->_postManager->updatePost($post);
 
         if ($affectedLines === false) {
             throw new \Exception('Impossible de modifier le post !');
@@ -171,13 +181,15 @@ class PostController extends Controller
     public function newPost()
     {
         $this->_token->checkToken();
+        
+        $post = new POST(array(
+            'author'        => $this->_request->getParameter("author"),
+            'title'         => $this->_request->getParameter("title"),
+            'leadParagraph' => $this->_request->getParameter("leadParagraph"),
+            'content'       => $this->_request->getParameter("content")
+        ));
+        $affectedLines = $this->_postManager->addPost($post);
 
-        $author        = $this->_request->getParameter("author");
-        $title         = $this->_request->getParameter("title");
-        $leadParagraph = $this->_request->getParameter("lead_paragraph");
-        $content       = $this->_request->getParameter("content");
-
-        $affectedLines = $this->_postManager->addPost($author, $title, $leadParagraph, $content);
         if ($affectedLines === false) {
             throw new \Exception("Impossible d'ajouter un post !");
         }
