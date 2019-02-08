@@ -1,6 +1,7 @@
 # BlogPost
 __OpenClassrooms project :__ Create your first blog in PHP  
-__Website URL hosted online :__ https://blogprofessionnel.000webhostapp.com
+__Website URL hosted online :__ [Blog Professionnel](https://blogprofessionnel.000webhostapp.com)  
+![Blog Post](https://github.com/percevalseb1309/BlogPost/blob/master/public/img/blog_post.jpg)
 
 ## Database and email with GMail SMTP server
 
